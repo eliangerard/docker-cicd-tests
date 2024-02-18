@@ -1,0 +1,28 @@
+version: '3.9'
+services:
+  api:
+    depends_on:
+      - db
+    build: .
+    ports:
+      - '8080:3000'
+    environment:
+      DB_HOST: db
+      DB_USER: usr
+      DB_PASSWORD: 123456789
+      DB_NAME: test
+  db:
+    image: mysql/mysql-server:8.0.32
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: test
+      MYSQL_USER: usr
+      MYSQL_PASSWORD: 123456789
+    volumes:
+      - mysql-data:/var/lib/mysql
+      # mysql -> /var/lib/mysql
+
+volumes:
+  mysql-data:

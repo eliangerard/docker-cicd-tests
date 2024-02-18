@@ -1,0 +1,32 @@
+version: '3.9'
+services:
+  api:
+    depends_on:
+      - db
+    build: 
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - '8080:3000'
+    volumes:
+      - .:/home/app
+    environment:
+      DB_HOST: db
+      DB_USER: dev
+      DB_PASSWORD: devpass
+      DB_NAME: test
+  db:
+    image: mysql/mysql-server:8.0.32
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: test
+      MYSQL_USER: dev
+      MYSQL_PASSWORD: devpass
+    volumes:
+      - mysql-data:/var/lib/mysql
+      # mysql -> /var/lib/mysql
+
+volumes:
+  mysql-data:
