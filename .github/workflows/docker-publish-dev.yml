@@ -1,0 +1,25 @@
+name: publish
+
+on:
+  push:
+    branches: ["dev"]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Código
+        uses: actions/checkout@v2
+
+      - name: Conectar por SSH al Servidor
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: root
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          script: |
+            cd /root/docker-cicd-tests
+            git pull origin dev
+            docker compose -f docker-compose-dev.yml down
+            docker compose -f docker-compose-dev.yml up
