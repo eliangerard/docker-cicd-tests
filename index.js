@@ -33,7 +33,7 @@ function connectWithRetry() {
   connectWithRetry();
 
 app.get('/', (req, res) => {
-    res.json({ message: 'Hola Mundo' });
+    res.json({ message: 'Hola Mundo 2' });
 });
 
 // Endpoint para hacer una consulta a la base de datos
