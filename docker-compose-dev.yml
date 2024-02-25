@@ -15,6 +15,7 @@ services:
       DB_USER: dev
       DB_PASSWORD: devpass
       DB_NAME: test
+    restart: always
   db:
     image: mysql/mysql-server:8.0.32
     ports:
@@ -27,6 +28,7 @@ services:
     volumes:
       - mysql-data:/var/lib/mysql
       # mysql -> /var/lib/mysql
+    restart: always
 
 volumes:
   mysql-data:
